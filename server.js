@@ -11,7 +11,7 @@ const LOGS_DIR = path.join(__dirname, 'logs');
 
 // Create logs directory if it doesn't exist
 if (!fs.existsSync(LOGS_DIR)) {
-    fs.mkdirSync(LOGS_DIR);
+    fs.mkdirSync(LOGS_DIR, { recursive: true });
 }
 
 app.use(cors());
@@ -26,14 +26,19 @@ app.get('/', (req, res) => {
 // API endpoint to receive and store logs
 app.post('/api/log', (req, res) => {
     try {
+        console.log('Received log request:', req.body);
         const logText = req.body;
         const currentDate = moment().utc().format('YY-MM-DD');
         const logFilePath = path.join(LOGS_DIR, `${currentDate}.json`);
+        console.log('Log file path:', logFilePath);
         
         let logs = [];
         if (fs.existsSync(logFilePath)) {
+            console.log('Existing log file found');
             const fileContent = fs.readFileSync(logFilePath, 'utf8');
             logs = JSON.parse(fileContent);
+        } else {
+            console.log('Creating new log file');
         }
         
         logs.push({
@@ -41,12 +46,14 @@ app.post('/api/log', (req, res) => {
             log: logText
         });
         
+        console.log('Writing logs to file...');
         fs.writeFileSync(logFilePath, JSON.stringify(logs, null, 2));
+        console.log('Logs written successfully');
         
         res.status(200).json({ message: 'Log stored successfully' });
     } catch (error) {
         console.error('Error storing log:', error);
-        res.status(500).json({ error: 'Failed to store log' });
+        res.status(500).json({ error: 'Failed to store log', details: error.message });
     }
 });
 
