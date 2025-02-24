@@ -1,0 +1,22 @@
+[
+  {
+    "timestamp": "2024-02-24T15:30:45Z",
+    "log": "https://api.filmd.co.uk/account/get-minimum-app-version?DeviceId=H7J8K9L0-M1N2-O3P4-Q5R6-S7T8U9V0W1X2&tag=axios_interceptor&method=get"
+  },
+  {
+    "timestamp": "2024-02-24T15:45:20Z",
+    "log": "https://api.filmd.co.uk/account/get-minimum-app-version?DeviceId=B1C2D3E4-F5G6-H7I8-J9K0-L1M2N3O4P5Q6&tag=api_request&method=post"
+  },
+  {
+    "timestamp": "2024-02-24T16:00:10Z",
+    "log": "https://api.filmd.co.uk/account/get-minimum-app-version?DeviceId=R8S9T0U1-V2W3-X4Y5-Z6A7-B8C9D0E1F2G3&tag=axios_call&method=get"
+  },
+  {
+    "timestamp": "2024-02-24T16:15:35Z",
+    "log": "https://api.filmd.co.uk/account/get-minimum-app-version?DeviceId=H4I5J6K7-L8M9-N0O1-P2Q3-R4S5T6U7V8W9&tag=api_interceptor&method=post"
+  },
+  {
+    "timestamp": "2024-02-24T16:30:55Z",
+    "log": "https://api.filmd.co.uk/account/get-minimum-app-version?DeviceId=X0Y1Z2A3-B4C5-D6E7-F8G9-H0I1J2K3L4M5&tag=axios_interceptor&method=get"
+  }
+]
