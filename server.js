@@ -16,7 +16,7 @@ if (!fs.existsSync(LOGS_DIR)) {
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.text());
+app.use(bodyParser.text({ type: '*/*' }));
 app.use(express.static('frontend'));
 
 app.get('/', (req, res) => {
@@ -27,7 +27,8 @@ app.get('/', (req, res) => {
 app.post('/api/log', (req, res) => {
     try {
         console.log('Received log request:', req.body);
-        const logText = req.body;
+        // Handle both JSON and plain text formats
+        const logText = typeof req.body === 'object' ? JSON.stringify(req.body) : req.body.toString().trim();
         const currentDate = moment().utc().format('YY-MM-DD');
         const logFilePath = path.join(LOGS_DIR, `${currentDate}.json`);
         console.log('Log file path:', logFilePath);
@@ -50,7 +51,7 @@ app.post('/api/log', (req, res) => {
         fs.writeFileSync(logFilePath, JSON.stringify(logs, null, 2));
         console.log('Logs written successfully');
         
-        res.status(200).json({ message: 'Log stored successfully' });
+        res.status(200).json({ message: 'Log stored successfully', status: 200 });
     } catch (error) {
         console.error('Error storing log:', error);
         res.status(500).json({ error: 'Failed to store log', details: error.message });
